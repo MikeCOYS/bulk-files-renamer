@@ -6,5 +6,5 @@ Boilerplate: https://github.com/electron-react-boilerplate/electron-react-boiler
 Guide:
 
 1) yarn
-2) yarn dev
+2) yarn start
 3) drag and drop folder / files and bulk rename files.
