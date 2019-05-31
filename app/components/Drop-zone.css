@@ -1,0 +1,9 @@
+.drag_and_drop_zone {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  outline: white dashed thick;
+  font-size: 5rem;
+}
