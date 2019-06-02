@@ -1,0 +1,11 @@
+.container {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  padding: 1rem;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 4fr;
+  box-sizing: border-box;
+  user-select: auto;
+  outline: red solid thick; /* DELETE AFTER - visual aid */
+}
