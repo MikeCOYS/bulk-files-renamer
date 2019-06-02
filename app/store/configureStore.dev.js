@@ -5,11 +5,12 @@ import { routerMiddleware, routerActions } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
 import createRootReducer from '../reducers';
 
-const history = createHashHistory();
+import type { State } from '../reducers/types';
 
+const history = createHashHistory();
 const rootReducer = createRootReducer(history);
 
-const configureStore = (initialState) => {
+const configureStore = (initialState: State) => {
   // Redux Configuration
   const middleware = [];
   const enhancers = [];

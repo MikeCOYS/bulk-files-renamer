@@ -1,7 +1,7 @@
 {
   "name": "bulk-files-renamer",
   "productName": "ElectronReact",
-  "version": "0.17.1",
+  "version": "1.0.0",
   "description": "Electron application that bulk renames files. Mainly for renaming videos and subtitles to have the same name.",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
@@ -262,6 +262,7 @@
     "electron-log": "^2.2.17",
     "electron-updater": "^3.2.3",
     "history": "^4.7.2",
+    "lodash.throttle": "^4.1.1",
     "normalize.css": "^8.0.1",
     "react": "16.8",
     "react-dom": "16.8",
