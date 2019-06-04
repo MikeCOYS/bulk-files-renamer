@@ -1,9 +1,19 @@
 .list__header_group {
-  height: 3rem;
-  width: 100%;
-  border-radius: 0.2rem;
   display: grid;
   grid-template-columns: 80% 20%;
+  height: 100%;
+  width: 100%;
+  border-radius: 0.2rem;
+}
+
+.list__header_group button {
+  background: none;
+  border: var(--blue_steel) solid thin;
+  background: rgb(99, 164, 224);
+  color: white;
+  font-size: 1.8rem;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+
 }
 
 .list__header_group input {

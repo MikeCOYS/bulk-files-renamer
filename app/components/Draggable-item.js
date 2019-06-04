@@ -13,8 +13,7 @@ const debouncedUpdateFilesList = debounce(updateFilesList, 500);
 
 export class DraggableItem extends React.Component {
   state = {
-    disableInteractiveElementBlocking: true,
-    enableAutoFocus: -1
+    disableInteractiveElementBlocking: true
   };
 
   handleInputChange = (event) => {
@@ -46,7 +45,6 @@ export class DraggableItem extends React.Component {
         index={index}
       >
         {(provided, snapshot) => {
-          console.log(snapshot, 'snap');
           return (
             <div
               ref={provided.innerRef}

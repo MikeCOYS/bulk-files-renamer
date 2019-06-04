@@ -10,6 +10,8 @@
   align-items: center;
   margin-bottom: 1rem;
   border-radius: 0.2rem;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+
 }
 
 .item__display_name {
@@ -31,7 +33,7 @@
 }
 
 .item--dragging_is_active {
-  background: lightgreen;
+  background: rgba(90, 90, 165, 0.8);
 }
 
 .item__control {
