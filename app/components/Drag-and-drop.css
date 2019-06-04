@@ -1,0 +1,36 @@
+.list__header_group {
+  height: 3rem;
+  width: 100%;
+  border-radius: 0.2rem;
+  display: grid;
+  grid-template-columns: 80% 20%;
+}
+
+.list__header_group input {
+  padding-left: 1rem;
+}
+
+.update_list_modal {
+  padding: 1rem;
+  position: absolute;
+  top: 25%;
+  left: 10%;
+  right: 10%;
+  bottom: 50%;
+  background-color: papayawhip;
+  user-select: none;
+}
+
+.update_list_modal__message {
+  color: black;
+  font-size: 1.5rem;
+}
+
+.update_list_modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(158, 157, 157, 0.658);
+}

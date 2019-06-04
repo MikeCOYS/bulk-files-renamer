@@ -1,0 +1,62 @@
+/* Tooltip obtained from http://www.menucool.com/tooltip/css-tooltip */
+
+.tooltip {
+  display: inline-block;
+  position: relative;
+  border-bottom: 1px dotted #666;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.tooltip p {
+  margin: 0;
+}
+
+.tooltip .left {
+  min-width: 200px;
+  top: 50%;
+  right: 100%;
+  margin-right: 20px;
+  transform: translate(0, -50%);
+  padding: 10px 20px;
+  color: white;
+  background: var(--blue_steel);
+  font-weight: normal;
+  border-radius: 8px;
+  position: absolute;
+  z-index: 1;
+  box-sizing: border-box;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  visibility: hidden;
+  opacity: 0;
+  height: 4rem;
+  min-height: 4rem;
+  transition: ease-out 0.4s;
+}
+
+.tooltip:hover .left {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip .left i {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-top: -12px;
+  width: 12px;
+  height: 1.5rem;
+  overflow: hidden;
+}
+
+.tooltip .left i::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  left: 0;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  background-color: var(--blue_steel);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}

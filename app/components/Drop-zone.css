@@ -5,7 +5,10 @@
   align-items: center;
   justify-items: center;
   outline: white dashed thick;
-  font-size: 5rem;
   cursor: pointer;
   user-select: none;
+}
+
+.drag_and_drop_zone p {
+  font-size: 2.5rem;
 }

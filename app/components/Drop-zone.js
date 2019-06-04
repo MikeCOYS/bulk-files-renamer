@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 import React from 'react';
 import classnames from 'classnames';
 import ReactDropZoneComponent from 'react-dropzone';
+import uuidv1 from 'uuid/v1';
 
 import { addFiles } from '../actions/files';
 import routes from '../constants/routes';
@@ -19,19 +20,23 @@ type DropZoneComponentProps = {
   history: RouterHistory
 };
 
-export type AcceptedFiles = {
+export type AcceptedFile = {
+  id: string,
   name: string,
   path: string,
   size: number,
   type: string,
   lastModified: string,
   lastModifiedDate: string
-}[];
+};
+
+export type AcceptedFiles = AcceptedFile[];
 
 export class DropZoneComponent extends React.Component<DropZoneComponentProps> {
   handleAcceptedFiles = (acceptedFiles: AcceptedFiles) => {
     const parsedFiles = acceptedFiles.map(
       ({ name, path, size, type, lastModified, lastModifiedDate }) => ({
+        id: uuidv1(),
         name,
         path,
         size,
@@ -50,7 +55,7 @@ export class DropZoneComponent extends React.Component<DropZoneComponentProps> {
       <ReactDropZoneComponent onDrop={this.handleAcceptedFiles}>
         {({ getRootProps, getInputProps }) => (
           <div
-            className={classnames(styles.drag_and_drop_zone)}
+            className={styles.drag_and_drop_zone}
             {...getRootProps()}
           >
             <input {...getInputProps()} />

@@ -57,6 +57,7 @@
       }
     ],
     "react/jsx-no-bind": "off",
+    "react/jsx-boolean-value": ["error", "never"],
     "react/jsx-filename-extension": [
       "error",
       { "extensions": [".js", ".jsx"] }

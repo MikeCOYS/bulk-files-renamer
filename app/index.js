@@ -11,13 +11,12 @@ import './app.global.css';
 const persistedState = loadState();
 const store = configureStore(persistedState);
 
-store.subscribe(
-  throttle(() => {
-    const { files } = store.getState();
-    saveState({ files });
-  }),
-  1000
-);
+const updateLocalStorage = () => {
+  const { files } = store.getState();
+  saveState({ files });
+};
+
+store.subscribe(throttle(updateLocalStorage, 500));
 
 render(
   <AppContainer>

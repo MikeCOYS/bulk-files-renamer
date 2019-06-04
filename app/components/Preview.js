@@ -7,6 +7,7 @@ import React from 'react';
 
 import { clearFiles } from '../actions/files';
 import routes from '../constants/routes';
+import { DragAndDrop } from './Drag-and-drop';
 import styles from './Preview.css';
 
 import type { ClearFilesAction } from '../actions/files';
@@ -16,15 +17,7 @@ type PreviewProps = {
   files: AcceptedFiles,
   clearFiles: () => void
 };
-
-type PreviewState = {
-  files: []
-};
-
-export class PreviewComponent extends React.Component<
-  PreviewProps,
-  PreviewState
-> {
+export class PreviewComponent extends React.Component<PreviewProps> {
   componentWillUnmount() {
     this.props.clearFiles();
   }
@@ -33,15 +26,12 @@ export class PreviewComponent extends React.Component<
     const { files } = this.props;
     return (
       <div className={styles.container}>
-        <div>
+        <div className={styles.control}>
           <Link to={routes.HOME}>BACK</Link>
+          <button>RESTORE LIST</button>
+          <button>SAVE</button>
         </div>
-        <div>
-          {files.map((file) => {
-            return <div key={new Date()}> {file.name} </div>;
-            // return <input key={new Date()} value={file.name} />;
-          })}
-        </div>
+        <DragAndDrop files={files} />
       </div>
     );
   }
