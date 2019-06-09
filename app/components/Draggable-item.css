@@ -34,26 +34,3 @@
 .item--dragging_is_active {
   background: rgba(90, 90, 165, 0.8);
 }
-
-.item__control {
-  display: grid;
-  grid-template-columns: 1fr;
-  justify-items: end;
-  font-size: 2rem;
-}
-
-.item__control_delete {
-  font-family: 'Font Awesome\ 5 Free';
-  position: relative;
-  font-weight: 900;
-  opacity: 0.3;
-  transition: ease-out 0.4s;
-}
-
-.item__control_delete:hover {
-  opacity: 1;
-}
-
-.item__control_delete::before {
-  content: '\f2ed';
-}

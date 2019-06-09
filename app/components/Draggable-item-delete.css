@@ -1,0 +1,25 @@
+.item__control {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: end;
+  font-size: 2rem;
+  background: none;
+  border: none;
+}
+
+.item__control_delete {
+  font-family: 'Font Awesome\ 5 Free';
+  position: relative;
+  font-weight: 900;
+  opacity: 0.3;
+  transition: ease-out 0.4s;
+  color: white;
+}
+
+.item__control_delete:hover {
+  opacity: 1;
+}
+
+.item__control_delete::before {
+  content: '\f2ed';
+}

@@ -2,22 +2,17 @@
 import type { DropResult } from 'react-beautiful-dnd';
 
 import React from 'react';
+import { connect } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Modal from 'react-modal';
 import debounce from 'lodash.debounce';
 
 import { DroppableList } from './Droppable-list';
+import { reorderFiles } from '../actions/files';
 import styles from './Drag-and-drop.css';
 
 import type { AcceptedFiles } from './Drop-zone';
-
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
+import type { ReorderFilesAction } from '../actions/files';
 
 Modal.setAppElement('#root');
 
@@ -31,12 +26,11 @@ type DragAndDropState = {
   showModal: boolean
 };
 
-export class DragAndDrop extends React.Component<
+class DragAndDropComponent extends React.Component<
   DragAndDropProps,
   DragAndDropState
 > {
   state = {
-    files: this.props.files,
     genericName: '',
     showModal: false
   };
@@ -46,13 +40,11 @@ export class DragAndDrop extends React.Component<
       return;
     }
 
-    const files = reorder(
-      this.state.files,
+    this.props.reorderFiles(
+      this.props.files,
       result.source.index,
       result.destination.index
     );
-
-    this.setState(() => ({ files }));
   };
 
   handleOpenModal = () => {
@@ -71,7 +63,7 @@ export class DragAndDrop extends React.Component<
 
   debouncedHandleGenericNameInput = debounce((genericName) => {
     this.setState(() => ({ genericName }));
-  }, 200);
+  }, 100);
 
   handleGenericNameInput = (event: SyntheticInputEvent<HTMLInputElement>) => {
     this.genericNameInputValue = event.target.value;
@@ -97,7 +89,7 @@ export class DragAndDrop extends React.Component<
         </div>
 
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <DroppableList files={this.state.files} />
+          <DroppableList files={this.props.files} />
         </DragDropContext>
         <Modal
           isOpen={this.state.showModal}
@@ -118,3 +110,17 @@ export class DragAndDrop extends React.Component<
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  files: state.files.present
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<ReorderFilesAction>) => ({
+  reorderFiles: (files, sourceIndex, destinationIndex) =>
+    dispatch(reorderFiles(files, sourceIndex, destinationIndex))
+});
+
+export const DragAndDrop = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DragAndDropComponent);

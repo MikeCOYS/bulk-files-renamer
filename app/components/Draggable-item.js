@@ -3,6 +3,8 @@ import classnames from 'classnames';
 import debounce from 'lodash.debounce';
 import { Draggable } from 'react-beautiful-dnd';
 
+import { DraggableItemDelete } from './Draggable-item-delete';
+
 import styles from './Draggable-item.css';
 
 const updateFilesList = (event) => {
@@ -62,9 +64,8 @@ export class DraggableItem extends React.Component {
               onBlur={this.handleOnBlurOnInput}
               onDoubleClick={this.handleDoubleClickOnInput}
             />
-            <div className={styles.item__control}>
-              <div className={styles.item__control_delete} />
-            </div>
+
+            <DraggableItemDelete file={file} />
           </div>
         )}
       </Draggable>

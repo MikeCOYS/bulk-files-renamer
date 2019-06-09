@@ -16,7 +16,9 @@ const updateLocalStorage = () => {
   saveState({ files });
 };
 
-store.subscribe(throttle(updateLocalStorage, 500));
+// Temp disable
+// TODO: Persist history, not the files. Recover what's needed, not everything.
+// store.subscribe(throttle(updateLocalStorage, 500));
 
 render(
   <AppContainer>

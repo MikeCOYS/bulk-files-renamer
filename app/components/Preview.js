@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import { ActionCreators as ReduxUndoActionCreators } from 'redux-undo';
 
-import { clearFiles } from '../actions/files';
 import routes from '../constants/routes';
 import { DragAndDrop } from './Drag-and-drop';
 import styles from './Preview.css';
@@ -16,29 +15,11 @@ import type { AcceptedFiles } from './Drop-zone';
 
 type PreviewProps = {
   files: AcceptedFiles,
-  clearFiles: () => void,
   undoFileChange: () => void,
   redoFileChange: () => void
 };
 
-type PreviewState = {
-  canUndo: boolean,
-  canRedo: boolean
-};
-
-export class PreviewComponent extends React.Component<
-  PreviewProps,
-  PreviewState
-> {
-  state = {
-    canUndo: false,
-    canRedo: false
-  };
-
-  componentWillUnmount() {
-    this.props.clearFiles(); // TODO: Clear files won't clear if user just exits. Need to handle this scenario
-  }
-
+export class PreviewComponent extends React.Component<PreviewProps> {
   onUndoFileChange = () => {
     this.props.undoFileChange();
   };
@@ -57,14 +38,14 @@ export class PreviewComponent extends React.Component<
           <button type="button">SAVE</button>
           <button
             type="button"
-            disabled={!this.state.canUndo}
+            disabled={!this.props.canUndo}
             onClick={this.onUndoFileChange}
           >
             UNDO
           </button>
           <button
             type="button"
-            disabled={!this.state.canRedo}
+            disabled={!this.props.canRedo}
             onClick={this.onRedoFileChange}
           >
             REDO
@@ -83,7 +64,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<ClearFilesAction>) => ({
-  clearFiles: () => dispatch(clearFiles()),
   undoFileChange: () => dispatch(ReduxUndoActionCreators.undo()),
   redoFileChange: () => dispatch(ReduxUndoActionCreators.redo())
 });
