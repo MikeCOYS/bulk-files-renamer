@@ -1,4 +1,6 @@
 // @flow
+import undoable from 'redux-undo';
+
 import type { FilesActions } from '../actions/files';
 import type { AcceptedFiles } from '../components/Drop-zone';
 
@@ -6,14 +8,25 @@ import { ADD_FILES, CLEAR_FILES, RESTORE_LIST } from '../actions/files';
 
 const filesReducerDefaultState = [];
 
-export type FilesState = {
-  files: AcceptedFiles
+type ReduxUndo = {
+  past: AcceptedFiles[],
+  present: AcceptedFiles[],
+  future: AcceptedFiles[],
+  history: AcceptedFiles[]
 };
 
-export default function files(
+export type FilesState = {
+  files: {
+    past: ReduxUndo[],
+    present: ReduxUndo[],
+    history: ReduxUndo[]
+  }
+};
+
+const files = (
   state: FilesState[] = filesReducerDefaultState,
   action: FilesActions
-) {
+) => {
   switch (action.type) {
     case ADD_FILES:
       return [...state, ...action.files];
@@ -24,4 +37,9 @@ export default function files(
     default:
       return state;
   }
-}
+};
+
+// provide the functionality to undo/redo a user change
+const undoableFiles = undoable(files);
+
+export default undoableFiles;

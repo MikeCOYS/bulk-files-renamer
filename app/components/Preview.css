@@ -13,7 +13,7 @@
 
 .control {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   justify-content: center;
   align-items: center;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);

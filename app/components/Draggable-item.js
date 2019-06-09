@@ -44,31 +44,29 @@ export class DraggableItem extends React.Component {
         draggableId={file.id}
         index={index}
       >
-        {(provided, snapshot) => {
-          return (
-            <div
-              ref={provided.innerRef}
-              {...provided.draggableProps}
-              {...provided.dragHandleProps}
-              className={classnames(styles.item, {
-                [styles['item--dragging_is_active']]: snapshot.isDragging
-              })}
-            >
-              <div>{index + 1}</div>
-              <input
-                type="text"
-                className={styles.item__display_name}
-                defaultValue={file.name}
-                onChange={this.handleInputChange}
-                onBlur={this.handleOnBlurOnInput}
-                onDoubleClick={this.handleDoubleClickOnInput}
-              />
-              <div className={styles.item__control}>
-                <div className={styles.item__control_delete} />
-              </div>
+        {(provided, snapshot) => (
+          <div
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            className={classnames(styles.item, {
+              [styles['item--dragging_is_active']]: snapshot.isDragging
+            })}
+          >
+            <div>{index + 1}</div>
+            <input
+              type="text"
+              className={styles.item__display_name}
+              defaultValue={file.name}
+              onChange={this.handleInputChange}
+              onBlur={this.handleOnBlurOnInput}
+              onDoubleClick={this.handleDoubleClickOnInput}
+            />
+            <div className={styles.item__control}>
+              <div className={styles.item__control_delete} />
             </div>
-          );
-        }}
+          </div>
+        )}
       </Draggable>
     );
   }

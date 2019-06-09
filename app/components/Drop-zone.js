@@ -5,7 +5,6 @@ import type { RouterHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import React from 'react';
-import classnames from 'classnames';
 import ReactDropZoneComponent from 'react-dropzone';
 import uuidv1 from 'uuid/v1';
 

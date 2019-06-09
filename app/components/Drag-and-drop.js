@@ -1,9 +1,15 @@
+// @flow
+import type { DropResult } from 'react-beautiful-dnd';
+
 import React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Modal from 'react-modal';
+import debounce from 'lodash.debounce';
 
 import { DroppableList } from './Droppable-list';
 import styles from './Drag-and-drop.css';
+
+import type { AcceptedFiles } from './Drop-zone';
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -15,13 +21,27 @@ const reorder = (list, startIndex, endIndex) => {
 
 Modal.setAppElement('#root');
 
-export class DragAndDrop extends React.Component {
+type DragAndDropProps = {
+  files: AcceptedFiles
+};
+
+type DragAndDropState = {
+  files: AcceptedFiles,
+  genericName: string,
+  showModal: boolean
+};
+
+export class DragAndDrop extends React.Component<
+  DragAndDropProps,
+  DragAndDropState
+> {
   state = {
     files: this.props.files,
+    genericName: '',
     showModal: false
   };
 
-  onDragEnd = (result) => {
+  onDragEnd = (result: DropResult) => {
     if (!result.destination) {
       return;
     }
@@ -47,6 +67,17 @@ export class DragAndDrop extends React.Component {
     this.handleOpenModal();
   };
 
+  genericNameInputValue = null;
+
+  debouncedHandleGenericNameInput = debounce((genericName) => {
+    this.setState(() => ({ genericName }));
+  }, 200);
+
+  handleGenericNameInput = (event: SyntheticInputEvent<HTMLInputElement>) => {
+    this.genericNameInputValue = event.target.value;
+    this.debouncedHandleGenericNameInput(this.genericNameInputValue);
+  };
+
   render() {
     return (
       <>
@@ -54,8 +85,15 @@ export class DragAndDrop extends React.Component {
           <input
             type="search"
             placeholder="Enter a generic name for all files..."
+            onKeyUp={this.handleGenericNameInput}
           />
-          <button onClick={this.handleRenameOnClick}>Update List</button>
+          <button
+            type="button"
+            disabled={!this.state.genericName}
+            onClick={this.handleRenameOnClick}
+          >
+            Update List
+          </button>
         </div>
 
         <DragDropContext onDragEnd={this.onDragEnd}>
@@ -68,7 +106,9 @@ export class DragAndDrop extends React.Component {
           className={styles.update_list_modal}
           overlayClassName={styles.update_list_modal__overlay}
         >
-          <button onClick={this.handleCloseModal}>Close Modal</button>
+          <button type="button" onClick={this.handleCloseModal}>
+            Close Modal
+          </button>
           <p className={styles.update_list_modal__message}>
             Please ensure the files are sorted in the correct order before
             clicking OK.
