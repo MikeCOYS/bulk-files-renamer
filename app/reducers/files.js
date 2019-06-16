@@ -1,5 +1,5 @@
 // @flow
-import undoable, { includeAction, excludeAction } from 'redux-undo';
+import undoable, { includeAction } from 'redux-undo';
 
 import type { FilesActions } from '../actions/files';
 import type { AcceptedFiles } from '../components/Drop-zone';

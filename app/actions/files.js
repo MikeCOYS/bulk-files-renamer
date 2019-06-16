@@ -54,7 +54,7 @@ export const editFile = (file: AcceptedFile): EditFileAction => ({
 
 export type DeleteFileAction = {|
   type: typeof DELETE_FILE,
-  file: AcceptedFile
+  id: string
 |};
 
 export const deleteFile = (id: string): DeleteFileAction => ({
@@ -63,14 +63,17 @@ export const deleteFile = (id: string): DeleteFileAction => ({
 });
 
 export type ReorderFilesAction = {|
-  type: typeof REORDER_FILES
+  type: typeof REORDER_FILES,
+  files: AcceptedFiles,
+  sourceIndex: number,
+  destinationIndex: number
 |};
 
 export const reorderFiles = (
-  files: AcceptedreorderedFiles,
+  files: AcceptedFiles,
   sourceIndex: number,
   destinationIndex: number
-): DeleteFileAction => ({
+): ReorderFilesAction => ({
   type: REORDER_FILES,
   files,
   sourceIndex,

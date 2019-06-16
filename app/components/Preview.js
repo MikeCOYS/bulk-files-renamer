@@ -16,7 +16,9 @@ import type { AcceptedFiles } from './Drop-zone';
 type PreviewProps = {
   files: AcceptedFiles,
   undoFileChange: () => void,
-  redoFileChange: () => void
+  redoFileChange: () => void,
+  canUndo: boolean,
+  canRedo: boolean
 };
 
 export class PreviewComponent extends React.Component<PreviewProps> {

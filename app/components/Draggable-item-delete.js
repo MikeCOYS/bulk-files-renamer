@@ -1,4 +1,6 @@
 // @flow
+import type { Dispatch } from 'redux';
+
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -6,11 +8,12 @@ import { deleteFile } from '../actions/files';
 
 import styles from './Draggable-item-delete.css';
 
-import type { DeleteFilesAction } from '../actions/files';
+import type { DeleteFileAction } from '../actions/files';
 import type { AcceptedFile } from './Drop-zone';
 
 type DraggableItemDeleteProps = {
-  file: AcceptedFile
+  file: AcceptedFile,
+  deleteFile: (id: string) => DeleteFileAction
 };
 
 class DraggableItemDeleteComponent extends React.Component<DraggableItemDeleteProps> {
@@ -27,13 +30,13 @@ class DraggableItemDeleteComponent extends React.Component<DraggableItemDeletePr
         className={styles.item__control}
         onClick={this.handleDeleteFile}
       >
-        <div className={styles.item__control_delete} />
+      <div className={styles.item__control_delete} />
       </button>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<DeleteFilesAction>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<DeleteFileAction>) => ({
   deleteFile: (id) => dispatch(deleteFile(id))
 });
 

@@ -1,4 +1,5 @@
 // @flow
+import type { Dispatch } from 'redux';
 import type { DropResult } from 'react-beautiful-dnd';
 
 import React from 'react';
@@ -17,11 +18,15 @@ import type { ReorderFilesAction } from '../actions/files';
 Modal.setAppElement('#root');
 
 type DragAndDropProps = {
+  reorderFiles: (
+    files: AcceptedFiles,
+    sourceIndex: number,
+    destinationIndex: number
+  ) => ReorderFilesAction,
   files: AcceptedFiles
 };
 
 type DragAndDropState = {
-  files: AcceptedFiles,
   genericName: string,
   showModal: boolean
 };
