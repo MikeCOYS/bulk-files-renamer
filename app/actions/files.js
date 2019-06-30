@@ -44,12 +44,20 @@ export const clearFiles = (): ClearFilesAction => ({
 
 export type EditFileAction = {|
   type: typeof EDIT_FILE,
-  file: AcceptedFile
+  id: string,
+  updatedFilename: string
 |};
 
-export const editFile = (file: AcceptedFile): EditFileAction => ({
+export const editFile = ({
+  id,
+  updatedFilename
+}: {
+  id: string,
+  updatedFilename: string
+}): EditFileAction => ({
   type: EDIT_FILE,
-  file
+  id,
+  updatedFilename
 });
 
 export type DeleteFileAction = {|

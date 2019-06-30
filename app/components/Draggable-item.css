@@ -13,20 +13,6 @@
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 }
 
-.item__display_name {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  background: inherit;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.item__display_name:focus {
-  background: rgb(101, 116, 143);
-  cursor: text;
-}
-
 .item:last-child {
   margin-bottom: unset;
 }

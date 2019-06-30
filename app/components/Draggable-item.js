@@ -1,26 +1,14 @@
 import React from 'react';
 import classnames from 'classnames';
-import debounce from 'lodash.debounce';
 import { Draggable } from 'react-beautiful-dnd';
 
 import { DraggableItemDelete } from './Draggable-item-delete';
+import { DraggableItemInput } from './Draggable-item-input';
 
 import styles from './Draggable-item.css';
-
-const updateFilesList = (event) => {
-  console.log(event, 'on search before');
-};
-
-const debouncedUpdateFilesList = debounce(updateFilesList, 500);
-
 export class DraggableItem extends React.Component {
   state = {
     disableInteractiveElementBlocking: true
-  };
-
-  handleInputChange = (event) => {
-    console.log('on change');
-    debouncedUpdateFilesList(event);
   };
 
   handleDoubleClickOnInput = () => {
@@ -56,15 +44,11 @@ export class DraggableItem extends React.Component {
             })}
           >
             <div>{index + 1}</div>
-            <input
-              type="text"
-              className={styles.item__display_name}
-              defaultValue={file.name}
-              onChange={this.handleInputChange}
-              onBlur={this.handleOnBlurOnInput}
-              onDoubleClick={this.handleDoubleClickOnInput}
+            <DraggableItemInput
+              file={file}
+              handleOnBlurOnInput={this.handleOnBlurOnInput}
+              handleDoubleClickOnInput={this.handleDoubleClickOnInput}
             />
-
             <DraggableItemDelete file={file} />
           </div>
         )}

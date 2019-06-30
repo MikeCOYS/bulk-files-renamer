@@ -1,0 +1,13 @@
+.item__display_name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  background: inherit;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.item__display_name:focus {
+  background: rgb(101, 116, 143);
+  cursor: text;
+}

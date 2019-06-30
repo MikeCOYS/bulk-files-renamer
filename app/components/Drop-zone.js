@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 // @flow
 import type { Dispatch } from 'redux';
 import type { RouterHistory } from 'react-router-dom';
@@ -88,12 +87,7 @@ export class DropZoneComponent extends React.Component<DropZoneComponentProps> {
         onDragOver={this.onDragOver}
         onDrop={this.handleOnDrop}
       >
-        <input
-          type="file"
-          multiple="multiple"
-          onChange={this.handleOnChange}
-          accept="image/*, video/*, .srt" // TODO: Create filter for drag and drop (disable and highlight dash border (prevent drop))
-        />
+        <input type="file" multiple="multiple" onChange={this.handleOnChange} />
         <p>Drag & drop files or folder here, or click to select.</p>
       </div>
     );
@@ -102,10 +96,12 @@ export class DropZoneComponent extends React.Component<DropZoneComponentProps> {
 
 const DropZoneComponentWithRouter = withRouter(DropZoneComponent);
 
-const mapDispatchToProps = (dispatch: Dispatch<AddFilesAction>) => ({
+const mapDispatchToProps = (
+  dispatch: Dispatch<AddFilesAction | ClearFilesAction>
+) => ({
   addFiles: (files) => dispatch(addFiles(files)),
   clearFiles: () => dispatch(clearFiles()),
-  clearReduxHistory: () => dispatch({ type: '@@INIT' }) // TODO: Create Action for clearing redux state
+  clearReduxHistory: () => dispatch({ type: '@@INIT' }) // An action from Redux
 });
 
 export const DropZone = connect(

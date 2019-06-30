@@ -9,7 +9,8 @@ import {
   CLEAR_FILES,
   RESTORE_LIST,
   DELETE_FILE,
-  REORDER_FILES
+  REORDER_FILES,
+  EDIT_FILE
 } from '../actions/files';
 
 const filesReducerDefaultState = [];
@@ -41,6 +42,14 @@ const reorder = ({
   return result;
 };
 
+const editFile = (state, action) => [
+  ...state.filter((file) => action.id !== file.id),
+  {
+    ...state.find((file) => action.id === file.id),
+    name: action.updatedFilename
+  }
+];
+
 const files = (
   state: FilesState[] = filesReducerDefaultState,
   action: FilesActions
@@ -56,6 +65,8 @@ const files = (
       return state.filter((file) => action.id !== file.id);
     case REORDER_FILES:
       return reorder(action);
+    case EDIT_FILE:
+      return editFile(state, action);
     default:
       return state;
   }
@@ -64,7 +75,7 @@ const files = (
 const configuration = {
   // Undo and Redo should happen after the user have added their files,
   // and on user interacted file actions
-  filter: includeAction([DELETE_FILE, REORDER_FILES])
+  filter: includeAction([DELETE_FILE, REORDER_FILES, EDIT_FILE])
 };
 
 // provide the functionality to undo / redo a user change

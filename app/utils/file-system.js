@@ -2,13 +2,15 @@
 import { promises } from 'fs';
 import { basename, extname, resolve } from 'path';
 
+import type { Stats } from 'fs';
+
 import type { AcceptedFile } from '../components/Drop-zone';
 
 export const recursiveGetFiles = async (path: string) => {
   const isFile = (await promises.stat(path)).isFile();
   if (isFile) return [path];
 
-  const directoryFiles = await promises.readdir(path);
+  const directoryFiles: string[] = await promises.readdir(path);
   const files = await Promise.all(
     directoryFiles.map(async (file) => {
       const resolvedFilePath = resolve(path, file);
@@ -21,7 +23,7 @@ export const recursiveGetFiles = async (path: string) => {
   return files;
 };
 
-export const getFileDetails = async (path: string): AcceptedFile => {
+export const getFileDetails = async (path: string) => {
   const {
     size,
     mtimeMs,
@@ -29,7 +31,7 @@ export const getFileDetails = async (path: string): AcceptedFile => {
     birthtimeMs,
     birthtime,
     ino
-  } = await promises.stat(path);
+  }: Stats = await promises.stat(path);
 
   return {
     name: basename(path),
