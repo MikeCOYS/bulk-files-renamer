@@ -64,6 +64,10 @@ class DragAndDropComponent extends React.Component<
     this.handleOpenModal();
   };
 
+  handleConfirm = () => {
+    console.log('confirm');
+  };
+
   genericNameInputValue = null;
 
   debouncedHandleGenericNameInput = debounce((genericName) => {
@@ -103,9 +107,23 @@ class DragAndDropComponent extends React.Component<
           className={styles.update_list_modal}
           overlayClassName={styles.update_list_modal__overlay}
         >
-          <button type="button" onClick={this.handleCloseModal}>
-            Close Modal
-          </button>
+          <div className={styles.update_list_modal__button_container}>
+            <button
+              className={styles.confirm}
+              type="button"
+              onClick={this.handleConfirm}
+            >
+              OK
+            </button>
+            <button
+              className={styles.close}
+              type="button"
+              onClick={this.handleCloseModal}
+            >
+              Close Modal
+            </button>
+          </div>
+
           <p className={styles.update_list_modal__message}>
             Please ensure the files are sorted in the correct order before
             clicking OK.

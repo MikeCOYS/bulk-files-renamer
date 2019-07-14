@@ -50,13 +50,23 @@ const editFile = (state, action) => [
   }
 ];
 
+const sortFiles = (state, files) => {
+  files.sort((a, b) => {
+    if (a.name < b.name) return -1;
+    if (a.name > b.name) return 1;
+    return 0;
+  });
+
+  return [...state, ...files];
+};
+
 const files = (
   state: FilesState[] = filesReducerDefaultState,
   action: FilesActions
 ) => {
   switch (action.type) {
     case ADD_FILES:
-      return [...state, ...action.files];
+      return sortFiles(state, action.files);
     case CLEAR_FILES:
       return [];
     case RESTORE_LIST:

@@ -20,6 +20,7 @@
 }
 
 .update_list_modal {
+  display: grid;
   padding: 1rem;
   position: absolute;
   top: 25%;
@@ -33,6 +34,8 @@
 .update_list_modal__message {
   color: black;
   font-size: 1.5rem;
+  text-align: center;
+  font-weight: bold;
 }
 
 .update_list_modal__overlay {
@@ -42,4 +45,38 @@
   right: 0;
   bottom: 0;
   background-color: rgba(158, 157, 157, 0.658);
+}
+
+.update_list_modal__button_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.update_list_modal__button_container > button {
+  height: 4rem;
+  width: 18rem;
+  margin-right: 1rem;
+  color: white;
+  font-size: 1.8rem;
+  border-radius: 0.3rem;
+  text-transform: uppercase;
+}
+
+.confirm {
+  background-color: rgb(39, 187, 71);
+  background-image: linear-gradient(
+    rgba(100, 155, 224, 0.2) 50%,
+    rgb(39, 187, 71),
+    rgb(39, 187, 71) 100%
+  );
+}
+
+.close {
+  background-color: rgb(218, 80, 39);
+  background-image: linear-gradient(
+    rgba(100, 155, 224, 0.2) 50%,
+    rgb(218, 80, 39),
+    rgb(218, 80, 39) 100%
+  );
 }

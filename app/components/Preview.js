@@ -15,13 +15,19 @@ import type { AcceptedFiles } from './Drop-zone';
 
 type PreviewProps = {
   files: AcceptedFiles,
+  restoreFilesList: () => void,
   undoFileChange: () => void,
   redoFileChange: () => void,
+  canRestore: boolean,
   canUndo: boolean,
   canRedo: boolean
 };
 
 export class PreviewComponent extends React.Component<PreviewProps> {
+  onRestoreFilesList = () => {
+    this.props.restoreFilesList();
+  };
+
   onUndoFileChange = () => {
     this.props.undoFileChange();
   };
@@ -36,7 +42,13 @@ export class PreviewComponent extends React.Component<PreviewProps> {
       <div className={styles.container}>
         <div className={styles.control}>
           <Link to={routes.HOME}>BACK</Link>
-          <button type="button">RESTORE LIST</button>
+          <button
+            type="button"
+            disabled={!this.props.canRestore}
+            onClick={this.onRestoreFilesList}
+          >
+            RESTORE LIST
+          </button>
           <button type="button">SAVE</button>
           <button
             type="button"
@@ -61,11 +73,13 @@ export class PreviewComponent extends React.Component<PreviewProps> {
 
 const mapStateToProps = (state) => ({
   files: state.files.present,
+  canRestore: state.files.past.length > 0,
   canUndo: state.files.past.length > 0,
   canRedo: state.files.future.length > 0
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<ClearFilesAction>) => ({
+  restoreFilesList: () => dispatch(ReduxUndoActionCreators.jumpToPast(0)),
   undoFileChange: () => dispatch(ReduxUndoActionCreators.undo()),
   redoFileChange: () => dispatch(ReduxUndoActionCreators.redo())
 });
