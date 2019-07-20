@@ -9,11 +9,11 @@ import Modal from 'react-modal';
 import debounce from 'lodash.debounce';
 
 import { DroppableList } from './Droppable-list';
-import { reorderFiles } from '../actions/files';
+import { reorderFiles, updateList } from '../actions/files';
 import styles from './Drag-and-drop.css';
 
 import type { AcceptedFiles } from './Drop-zone';
-import type { ReorderFilesAction } from '../actions/files';
+import type { ReorderFilesAction, UpdateListAction } from '../actions/files';
 
 Modal.setAppElement('#root');
 
@@ -23,7 +23,8 @@ type DragAndDropProps = {
     sourceIndex: number,
     destinationIndex: number
   ) => ReorderFilesAction,
-  files: AcceptedFiles
+  files: AcceptedFiles,
+  updateList: (genericName: string) => UpdateListAction
 };
 
 type DragAndDropState = {
@@ -65,7 +66,8 @@ class DragAndDropComponent extends React.Component<
   };
 
   handleConfirm = () => {
-    console.log('confirm');
+    this.props.updateList(this.state.genericName);
+    this.handleCloseModal();
   };
 
   genericNameInputValue = null;
@@ -138,9 +140,12 @@ const mapStateToProps = (state) => ({
   files: state.files.present
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<ReorderFilesAction>) => ({
+const mapDispatchToProps = (
+  dispatch: Dispatch<ReorderFilesAction | UpdateListAction>
+) => ({
   reorderFiles: (files, sourceIndex, destinationIndex) =>
-    dispatch(reorderFiles(files, sourceIndex, destinationIndex))
+    dispatch(reorderFiles(files, sourceIndex, destinationIndex)),
+  updateList: (genericName) => dispatch(updateList(genericName))
 });
 
 export const DragAndDrop = connect(

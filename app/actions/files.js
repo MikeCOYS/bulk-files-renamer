@@ -7,6 +7,7 @@ export const EDIT_FILE = 'EDIT_FILE';
 export const RESTORE_LIST = 'RESTORE_LIST';
 export const DELETE_FILE = 'DELETE_FILE';
 export const REORDER_FILES = 'REORDER_FILES';
+export const UPDATE_LIST = 'UPDATE_LIST';
 
 export type FilesActions =
   | RestoreListAction
@@ -14,7 +15,8 @@ export type FilesActions =
   | ClearFilesAction
   | EditFileAction
   | DeleteFileAction
-  | ReorderFilesAction;
+  | ReorderFilesAction
+  | UpdateListAction;
 
 export type RestoreListAction = {|
   type: typeof RESTORE_LIST
@@ -58,6 +60,16 @@ export const editFile = ({
   type: EDIT_FILE,
   id,
   updatedFilename
+});
+
+export type UpdateListAction = {|
+  type: typeof UPDATE_LIST,
+  genericName: string
+|};
+
+export const updateList = (genericName: string): UpdateListAction => ({
+  type: UPDATE_LIST,
+  genericName
 });
 
 export type DeleteFileAction = {|

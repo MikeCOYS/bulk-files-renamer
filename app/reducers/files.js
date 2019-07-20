@@ -10,16 +10,17 @@ import {
   RESTORE_LIST,
   DELETE_FILE,
   REORDER_FILES,
-  EDIT_FILE
+  EDIT_FILE,
+  UPDATE_LIST
 } from '../actions/files';
 
 const filesReducerDefaultState = [];
 
 type ReduxUndo = {
-  past: AcceptedFiles[],
-  present: AcceptedFiles[],
-  future: AcceptedFiles[],
-  history: AcceptedFiles[]
+  past: AcceptedFiles,
+  present: AcceptedFiles,
+  future: AcceptedFiles,
+  history: AcceptedFiles
 };
 
 export type FilesState = {
@@ -77,6 +78,11 @@ const files = (
       return reorder(action);
     case EDIT_FILE:
       return editFile(state, action);
+    case UPDATE_LIST:
+      return state.map((file, index) => ({
+        ...file,
+        name: `${index + 1} - ${action.genericName}${file.type}`
+      }));
     default:
       return state;
   }
@@ -85,7 +91,7 @@ const files = (
 const configuration = {
   // Undo and Redo should happen after the user have added their files,
   // and on user interacted file actions
-  filter: includeAction([DELETE_FILE, REORDER_FILES, EDIT_FILE])
+  filter: includeAction([DELETE_FILE, REORDER_FILES, EDIT_FILE, UPDATE_LIST])
 };
 
 // provide the functionality to undo / redo a user change
