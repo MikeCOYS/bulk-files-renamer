@@ -1,8 +1,8 @@
 // @flow
-import undoable, { includeAction } from 'redux-undo';
+import undoable, { includeAction } from 'redux-undo'
 
-import type { FilesActions } from '../actions/files';
-import type { AcceptedFiles } from '../components/Drop-zone';
+import type { FilesActions } from '../actions/files'
+import type { AcceptedFiles } from '../components/Drop-zone'
 
 import {
   ADD_FILES,
@@ -12,16 +12,16 @@ import {
   REORDER_FILES,
   EDIT_FILE,
   UPDATE_LIST
-} from '../actions/files';
+} from '../actions/files'
 
-const filesReducerDefaultState = [];
+const filesReducerDefaultState = []
 
 type ReduxUndo = {
   past: AcceptedFiles,
   present: AcceptedFiles,
   future: AcceptedFiles,
   history: AcceptedFiles
-};
+}
 
 export type FilesState = {
   files: {
@@ -29,19 +29,19 @@ export type FilesState = {
     present: ReduxUndo[],
     history: ReduxUndo[]
   }
-};
+}
 
 const reorder = ({
   files: list,
   sourceIndex: startIndex,
   destinationIndex: endIndex
 }) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
+  const result = Array.from(list)
+  const [removed] = result.splice(startIndex, 1)
+  result.splice(endIndex, 0, removed)
 
-  return result;
-};
+  return result
+}
 
 const editFile = (state, action) => [
   ...state.filter((file) => action.id !== file.id),
@@ -49,17 +49,17 @@ const editFile = (state, action) => [
     ...state.find((file) => action.id === file.id),
     name: action.updatedFilename
   }
-];
+]
 
 const sortFiles = (state, files) => {
   files.sort((a, b) => {
-    if (a.name < b.name) return -1;
-    if (a.name > b.name) return 1;
-    return 0;
-  });
+    if (a.name < b.name) return -1
+    if (a.name > b.name) return 1
+    return 0
+  })
 
-  return [...state, ...files];
-};
+  return [...state, ...files]
+}
 
 const files = (
   state: FilesState[] = filesReducerDefaultState,
@@ -67,34 +67,34 @@ const files = (
 ) => {
   switch (action.type) {
     case ADD_FILES:
-      return sortFiles(state, action.files);
+      return sortFiles(state, action.files)
     case CLEAR_FILES:
-      return [];
+      return []
     case RESTORE_LIST:
-      return state;
+      return state
     case DELETE_FILE:
-      return state.filter((file) => action.id !== file.id);
+      return state.filter((file) => action.id !== file.id)
     case REORDER_FILES:
-      return reorder(action);
+      return reorder(action)
     case EDIT_FILE:
-      return editFile(state, action);
+      return editFile(state, action)
     case UPDATE_LIST:
       return state.map((file, index) => ({
         ...file,
         name: `${index + 1} - ${action.genericName}${file.type}`
-      }));
+      }))
     default:
-      return state;
+      return state
   }
-};
+}
 
 const configuration = {
   // Undo and Redo should happen after the user have added their files,
   // and on user interacted file actions
   filter: includeAction([DELETE_FILE, REORDER_FILES, EDIT_FILE, UPDATE_LIST])
-};
+}
 
 // provide the functionality to undo / redo a user change
-const undoableFiles = undoable(files, configuration);
+const undoableFiles = undoable(files, configuration)
 
-export default undoableFiles;
+export default undoableFiles

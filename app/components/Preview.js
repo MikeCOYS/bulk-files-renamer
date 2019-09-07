@@ -1,17 +1,17 @@
 // @flow
-import type { Dispatch } from 'redux';
+import type { Dispatch } from 'redux'
 
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import React from 'react';
-import { ActionCreators as ReduxUndoActionCreators } from 'redux-undo';
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import React from 'react'
+import { ActionCreators as ReduxUndoActionCreators } from 'redux-undo'
 
-import routes from '../constants/routes';
-import { DragAndDrop } from './Drag-and-drop';
-import styles from './Preview.css';
+import routes from '../constants/routes'
+import { DragAndDrop } from './Drag-and-drop'
+import styles from './Preview.css'
 
-import type { ClearFilesAction } from '../actions/files';
-import type { AcceptedFiles } from './Drop-zone';
+import type { ClearFilesAction } from '../actions/files'
+import type { AcceptedFiles } from './Drop-zone'
 
 type PreviewProps = {
   files: AcceptedFiles,
@@ -25,19 +25,19 @@ type PreviewProps = {
 
 export class PreviewComponent extends React.Component<PreviewProps> {
   onRestoreFilesList = () => {
-    this.props.restoreFilesList();
-  };
+    this.props.restoreFilesList()
+  }
 
   onUndoFileChange = () => {
-    this.props.undoFileChange();
-  };
+    this.props.undoFileChange()
+  }
 
   onRedoFileChange = () => {
-    this.props.redoFileChange();
-  };
+    this.props.redoFileChange()
+  }
 
   render() {
-    const { files } = this.props;
+    const { files } = this.props
     return (
       <div className={styles.container}>
         <div className={styles.control}>
@@ -67,7 +67,7 @@ export class PreviewComponent extends React.Component<PreviewProps> {
         </div>
         <DragAndDrop files={files} />
       </div>
-    );
+    )
   }
 }
 
@@ -76,15 +76,15 @@ const mapStateToProps = (state) => ({
   canRestore: state.files.past.length > 0,
   canUndo: state.files.past.length > 0,
   canRedo: state.files.future.length > 0
-});
+})
 
 const mapDispatchToProps = (dispatch: Dispatch<ClearFilesAction>) => ({
   restoreFilesList: () => dispatch(ReduxUndoActionCreators.jumpToPast(0)),
   undoFileChange: () => dispatch(ReduxUndoActionCreators.undo()),
   redoFileChange: () => dispatch(ReduxUndoActionCreators.redo())
-});
+})
 
 export const Preview = connect(
   mapStateToProps,
   mapDispatchToProps
-)(PreviewComponent);
+)(PreviewComponent)

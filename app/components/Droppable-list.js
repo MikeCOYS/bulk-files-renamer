@@ -1,14 +1,14 @@
 // @flow
 
-import React from 'react';
-import { Droppable } from 'react-beautiful-dnd';
-import classnames from 'classnames';
+import React from 'react'
+import { Droppable } from 'react-beautiful-dnd'
+import classnames from 'classnames'
 
-import { DraggableItems } from './Draggable-items';
-import { Tooltip } from './Tooltip';
-import styles from './Droppable-list.css';
+import { DraggableItems } from './Draggable-items'
+import { Tooltip } from './Tooltip'
+import styles from './Droppable-list.css'
 
-import type { AcceptedFiles } from '../components/Drop-zone';
+import type { AcceptedFiles } from './Drop-zone'
 
 type DroppableListProps = {
   files: AcceptedFiles
@@ -39,5 +39,5 @@ export function DroppableList({ files }: DroppableListProps) {
         </div>
       )}
     </Droppable>
-  );
+  )
 }

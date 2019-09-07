@@ -1,30 +1,31 @@
-import React from 'react';
-import classnames from 'classnames';
-import { Draggable } from 'react-beautiful-dnd';
+import React from 'react'
+import classnames from 'classnames'
+import { Draggable } from 'react-beautiful-dnd'
 
-import { DraggableItemDelete } from './Draggable-item-delete';
-import { DraggableItemInput } from './Draggable-item-input';
+import { DraggableItemDelete } from './Draggable-item-delete'
+import { DraggableItemInput } from './Draggable-item-input'
 
-import styles from './Draggable-item.css';
+import styles from './Draggable-item.css'
+
 export class DraggableItem extends React.Component {
   state = {
     disableInteractiveElementBlocking: true
-  };
+  }
 
   handleDoubleClickOnInput = () => {
     this.setState(() => ({
       disableInteractiveElementBlocking: false
-    }));
-  };
+    }))
+  }
 
   handleOnBlurOnInput = () => {
     this.setState(() => ({
       disableInteractiveElementBlocking: true
-    }));
-  };
+    }))
+  }
 
   render() {
-    const { file, index } = this.props;
+    const { file, index } = this.props
 
     return (
       <Draggable
@@ -53,6 +54,6 @@ export class DraggableItem extends React.Component {
           </div>
         )}
       </Draggable>
-    );
+    )
   }
 }

@@ -1,19 +1,19 @@
 // @flow
-import React from 'react';
-import classnames from 'classnames';
+import React from 'react'
+import classnames from 'classnames'
 
-import styles from './Tooltip.css';
+import styles from './Tooltip.css'
 
-const TOP: 'TOP' = 'TOP';
-const RIGHT: 'RIGHT' = 'RIGHT';
-const BOTTOM: 'BOTTOM' = 'BOTTOM';
-const LEFT: 'LEFT' = 'LEFT';
+const TOP: 'TOP' = 'TOP'
+const RIGHT: 'RIGHT' = 'RIGHT'
+const BOTTOM: 'BOTTOM' = 'BOTTOM'
+const LEFT: 'LEFT' = 'LEFT'
 
 type TooltipProps = {
   classNames: string,
   content: string,
   direction: typeof TOP | typeof RIGHT | typeof BOTTOM | typeof LEFT
-};
+}
 
 export function Tooltip({ classNames, content, direction }: TooltipProps) {
   return (
@@ -30,5 +30,5 @@ export function Tooltip({ classNames, content, direction }: TooltipProps) {
         <i />
       </div>
     </div>
-  );
+  )
 }

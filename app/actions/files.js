@@ -1,13 +1,13 @@
 // @flow
-import type { AcceptedFile, AcceptedFiles } from '../components/Drop-zone';
+import type { AcceptedFile, AcceptedFiles } from '../components/Drop-zone'
 
-export const ADD_FILES = 'ADD_FILES';
-export const CLEAR_FILES = 'CLEAR_FILES';
-export const EDIT_FILE = 'EDIT_FILE';
-export const RESTORE_LIST = 'RESTORE_LIST';
-export const DELETE_FILE = 'DELETE_FILE';
-export const REORDER_FILES = 'REORDER_FILES';
-export const UPDATE_LIST = 'UPDATE_LIST';
+export const ADD_FILES = 'ADD_FILES'
+export const CLEAR_FILES = 'CLEAR_FILES'
+export const EDIT_FILE = 'EDIT_FILE'
+export const RESTORE_LIST = 'RESTORE_LIST'
+export const DELETE_FILE = 'DELETE_FILE'
+export const REORDER_FILES = 'REORDER_FILES'
+export const UPDATE_LIST = 'UPDATE_LIST'
 
 export type FilesActions =
   | RestoreListAction
@@ -24,7 +24,7 @@ export type RestoreListAction = {|
 
 export const restoreList = (): RestoreListAction => ({
   type: RESTORE_LIST
-});
+})
 
 export type AddFilesAction = {|
   type: typeof ADD_FILES,
@@ -34,7 +34,7 @@ export type AddFilesAction = {|
 export const addFiles = (files: AcceptedFiles): AddFilesAction => ({
   type: ADD_FILES,
   files
-});
+})
 
 export type ClearFilesAction = {|
   type: typeof CLEAR_FILES
@@ -42,7 +42,7 @@ export type ClearFilesAction = {|
 
 export const clearFiles = (): ClearFilesAction => ({
   type: CLEAR_FILES
-});
+})
 
 export type EditFileAction = {|
   type: typeof EDIT_FILE,
@@ -60,7 +60,7 @@ export const editFile = ({
   type: EDIT_FILE,
   id,
   updatedFilename
-});
+})
 
 export type UpdateListAction = {|
   type: typeof UPDATE_LIST,
@@ -70,7 +70,7 @@ export type UpdateListAction = {|
 export const updateList = (genericName: string): UpdateListAction => ({
   type: UPDATE_LIST,
   genericName
-});
+})
 
 export type DeleteFileAction = {|
   type: typeof DELETE_FILE,
@@ -80,7 +80,7 @@ export type DeleteFileAction = {|
 export const deleteFile = (id: string): DeleteFileAction => ({
   type: DELETE_FILE,
   id
-});
+})
 
 export type ReorderFilesAction = {|
   type: typeof REORDER_FILES,
@@ -98,4 +98,4 @@ export const reorderFiles = (
   files,
   sourceIndex,
   destinationIndex
-});
+})

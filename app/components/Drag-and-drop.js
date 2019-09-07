@@ -1,21 +1,21 @@
 // @flow
-import type { Dispatch } from 'redux';
-import type { DropResult } from 'react-beautiful-dnd';
+import type { Dispatch } from 'redux'
+import type { DropResult } from 'react-beautiful-dnd'
 
-import React from 'react';
-import { connect } from 'react-redux';
-import { DragDropContext } from 'react-beautiful-dnd';
-import Modal from 'react-modal';
-import debounce from 'lodash.debounce';
+import React from 'react'
+import { connect } from 'react-redux'
+import { DragDropContext } from 'react-beautiful-dnd'
+import Modal from 'react-modal'
+import debounce from 'lodash.debounce'
 
-import { DroppableList } from './Droppable-list';
-import { reorderFiles, updateList } from '../actions/files';
-import styles from './Drag-and-drop.css';
+import { DroppableList } from './Droppable-list'
+import { reorderFiles, updateList } from '../actions/files'
+import styles from './Drag-and-drop.css'
 
-import type { AcceptedFiles } from './Drop-zone';
-import type { ReorderFilesAction, UpdateListAction } from '../actions/files';
+import type { AcceptedFiles } from './Drop-zone'
+import type { ReorderFilesAction, UpdateListAction } from '../actions/files'
 
-Modal.setAppElement('#root');
+Modal.setAppElement('#root')
 
 type DragAndDropProps = {
   reorderFiles: (
@@ -39,47 +39,47 @@ class DragAndDropComponent extends React.Component<
   state = {
     genericName: '',
     showModal: false
-  };
+  }
 
   onDragEnd = (result: DropResult) => {
     if (!result.destination) {
-      return;
+      return
     }
 
     this.props.reorderFiles(
       this.props.files,
       result.source.index,
       result.destination.index
-    );
-  };
+    )
+  }
 
   handleOpenModal = () => {
-    this.setState({ showModal: true });
-  };
+    this.setState({ showModal: true })
+  }
 
   handleCloseModal = () => {
-    this.setState({ showModal: false });
-  };
+    this.setState({ showModal: false })
+  }
 
   handleRenameOnClick = () => {
-    this.handleOpenModal();
-  };
+    this.handleOpenModal()
+  }
 
   handleConfirm = () => {
-    this.props.updateList(this.state.genericName);
-    this.handleCloseModal();
-  };
+    this.props.updateList(this.state.genericName)
+    this.handleCloseModal()
+  }
 
-  genericNameInputValue = null;
+  genericNameInputValue = null
 
   debouncedHandleGenericNameInput = debounce((genericName) => {
-    this.setState(() => ({ genericName }));
-  }, 100);
+    this.setState(() => ({ genericName }))
+  }, 100)
 
   handleGenericNameInput = (event: SyntheticInputEvent<HTMLInputElement>) => {
-    this.genericNameInputValue = event.target.value;
-    this.debouncedHandleGenericNameInput(this.genericNameInputValue);
-  };
+    this.genericNameInputValue = event.target.value
+    this.debouncedHandleGenericNameInput(this.genericNameInputValue)
+  }
 
   render() {
     return (
@@ -132,13 +132,13 @@ class DragAndDropComponent extends React.Component<
           </p>
         </Modal>
       </>
-    );
+    )
   }
 }
 
 const mapStateToProps = (state) => ({
   files: state.files.present
-});
+})
 
 const mapDispatchToProps = (
   dispatch: Dispatch<ReorderFilesAction | UpdateListAction>
@@ -146,9 +146,9 @@ const mapDispatchToProps = (
   reorderFiles: (files, sourceIndex, destinationIndex) =>
     dispatch(reorderFiles(files, sourceIndex, destinationIndex)),
   updateList: (genericName) => dispatch(updateList(genericName))
-});
+})
 
 export const DragAndDrop = connect(
   mapStateToProps,
   mapDispatchToProps
-)(DragAndDropComponent);
+)(DragAndDropComponent)

@@ -1,8 +1,8 @@
 // @flow
-import type { FilesState } from './files';
+import type { FilesState } from './files'
 
 export type Action = {
   +type: string
-};
+}
 
-export type State = FilesState;
+export type State = FilesState

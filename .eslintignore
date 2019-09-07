@@ -31,7 +31,6 @@ node_modules
 .DS_Store
 
 # flow-typed
-flow-typed/module_vx.x.x.js
 flow-typed/npm/*
 !flow-typed/npm/module_vx.x.x.js
 
